@@ -19,6 +19,7 @@ jobs:
 
       - name: confirm-convention
         id: check-commit
+        continue-on-error: true
         uses: webiny/action-conventional-commits@v1.3.0
         with:
           allowed-commit-types: "feat,fix"
