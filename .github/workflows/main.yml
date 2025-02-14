@@ -1,1 +1,34 @@
+name: Nightly Build with Conventional Commits
 
+on:
+  pull_request_target:
+    types:
+      - opened
+      - synchronize
+
+permissions:
+  pull-requests: write
+  contents: read
+      
+jobs:
+  confirm-convention-and-build:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: confirm-convention
+        id: check-commit
+        uses: webiny/action-conventional-commits@v1.3.0
+        with:
+          allowed-commit-types: "feat,fix"
+
+      - name: close-on-fail
+        if: steps.check-commit.outcome == 'failure'
+        uses: superbrothers/close-pull-request@v3
+        with:
+          comment: "PR closed due to not following commit convention"
+
+      
+
+    
