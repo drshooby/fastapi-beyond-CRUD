@@ -5,6 +5,7 @@ on:
     types:
       - opened
       - synchronize
+      - reopened
 
 permissions:
   pull-requests: write
@@ -29,6 +30,8 @@ jobs:
         uses: superbrothers/close-pull-request@v3
         with:
           comment: "PR closed due to not following commit convention"
+        
+
 
       
 
