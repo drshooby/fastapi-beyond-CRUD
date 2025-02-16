@@ -1,20 +1,21 @@
 name: Nightly Build with Conventional Commits
 
 on:
+  push:
+    branches:
+      - main
   pull_request_target:
     types:
       - opened
       - synchronize
       - reopened
-  schedule:
-    - cron: "* * * * *"
 
 permissions:
   pull-requests: write
   contents: read
-      
+
 jobs:
-  confirm-convention-and-build:
+  confirm-convention:
     runs-on: ubuntu-24.04
 
     steps:
@@ -30,10 +31,10 @@ jobs:
         uses: superbrothers/close-pull-request@v3
         with:
           comment: "PR closed due to not following commit convention"
-        
-  build_and_push:
+
+  build_and_test:
     runs-on: ubuntu-24.04
-    needs: confirm-convention-and-build
+    needs: confirm-convention
 
     steps:
       - uses: actions/checkout@v4
@@ -41,15 +42,13 @@ jobs:
       - name: Set up Docker
         uses: docker/setup-buildx-action@v3
 
-      - name: Build Docker Image
-        run: docker build -t nightly
+      - name: Run docker-compose up
+        run: |
+          docker-compose -f docker-compose.yml up -d
+          docker-compose build
 
-      - name: Run Tests
-        run: docker run --rm nightly pytest tests/
-        
-      
+      - name: Run Tests inside the web container
+        run: docker-compose exec -T web pytest tests/
 
-
-      
-
-    
+      - name: Shut down Docker Compose
+        run: docker-compose down
