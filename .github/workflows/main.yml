@@ -54,7 +54,9 @@ jobs:
         run: cp .env.example .env
 
       - name: Check Services
-        run: docker compose ps
+        run: |
+          docker compose ps
+          docker compose logs -f web
 
       - name: Install Pytest
         run: pip install -U pytest
