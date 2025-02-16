@@ -54,9 +54,7 @@ jobs:
         run: docker compose up -d
 
       - name: Install Pytest
-        run: |
-          docker-compose exec web pip install pytest
-          docker-compose exec web pytest --version
+        run: docker compose exec web pip install pytest
 
       - name: Run Tests
         run: docker compose exec web pytest
