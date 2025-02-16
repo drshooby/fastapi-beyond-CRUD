@@ -49,6 +49,5 @@ jobs:
 
       - name: Copy Environment Variables
         run: cp .env.example .env
-
       - name: Run Tests
         run: docker compose exec web pytest
