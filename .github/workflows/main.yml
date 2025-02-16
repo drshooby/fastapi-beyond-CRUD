@@ -53,6 +53,9 @@ jobs:
       - name: Copy Environment Variables
         run: cp .env.example .env
 
+      - name: Check Services
+        run: docker compose ps
+
       - name: Install Pytest
         run: pip install -U pytest
         
