@@ -47,14 +47,11 @@ jobs:
         with:
           version: '2.14.2'
 
-      - name: Run Compoose Up
-        run: docker compose up -d
-
       - name: Copy Environment Variables
         run: cp .env.example .env
 
-      - name: Verify env
-        run: docker run --env-file .env web
+      - name: Run Compoose Up
+        run: docker compose up -d
 
       - name: Check Services
         run: |
