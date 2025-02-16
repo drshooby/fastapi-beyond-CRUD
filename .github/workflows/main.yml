@@ -54,7 +54,7 @@ jobs:
         run: cp .env.example .env
 
       - name: Verify env
-        run: cat .env
+        run: docker run --env-file .env web
 
       - name: Check Services
         run: |
