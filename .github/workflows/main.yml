@@ -53,11 +53,6 @@ jobs:
       - name: Run Compoose Up
         run: docker compose up -d
 
-      - name: Check Services
-        run: |
-          docker compose ps
-          docker compose logs -f web
-
       - name: Install Pytest
         run: pip install -U pytest
         
