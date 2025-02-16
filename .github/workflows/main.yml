@@ -42,10 +42,13 @@ jobs:
       - name: Set up Docker
         uses: docker/setup-buildx-action@v3
 
-      - name: Run docker compose
-        uses: hoverkraft-tech/compose-action@v2.0.1
+      - name: Set up Docker Compose
+        uses: KengoTODA/actions-setup-docker-compose@v1
         with:
-          compose-file: "./compose.yml"
+          version: '2.14.2'
+
+      - name: Run Compoose Up
+        run: docker compose up -d
 
       - name: Copy Environment Variables
         run: cp .env.example .env
