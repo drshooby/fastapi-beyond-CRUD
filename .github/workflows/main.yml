@@ -53,6 +53,9 @@ jobs:
       - name: Copy Environment Variables
         run: cp .env.example .env
 
+      - name: Verify env
+        run: cat .env
+
       - name: Check Services
         run: |
           docker compose ps
