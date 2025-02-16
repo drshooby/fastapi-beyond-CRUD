@@ -47,8 +47,5 @@ jobs:
         with:
           compose-file: "./compose.yml"
 
-      - name: Run Tests inside the web container
-        run: docker-compose exec -T web pytest tests/
-
-      - name: Shut down Docker Compose
-        run: docker-compose down
+      - name: Run Tests
+        run: docker compose exec web pytest
