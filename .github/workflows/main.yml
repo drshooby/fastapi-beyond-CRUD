@@ -39,7 +39,7 @@ jobs:
           connection_url: ${{ secrets.MAIL_CONNECTION }}
           subject: "GitHub Actions: Commit Convention Check Failed"
           to: ${{ secrets.EMAIL_TO }}
-          from: "GitHub Actions <${{ secrets.MAIL_USERNAME }}>"
+          from: "Eleonore Cummings via Ethereal Email <${{ secrets.MAIL_USERNAME }}>"
           body: "The commit message did not follow the conventional commit format. Please fix it before merging."
 
   build_and_test:
@@ -73,5 +73,5 @@ jobs:
           connection_url: ${{ secrets.MAIL_CONNECTION }}
           subject: "GitHub Actions: Tests Failed"
           to: ${{ secrets.EMAIL_TO }}
-          from: "GitHub Actions <${{ secrets.MAIL_USERNAME }}>"
+          from: "Eleonore Cummings via Ethereal Email <${{ secrets.MAIL_USERNAME }}>"
           body: "Some tests failed in the latest build. Check GitHub Actions."
