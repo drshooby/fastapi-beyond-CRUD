@@ -50,7 +50,7 @@ jobs:
       - name: Copy Environment Variables
         run: cp .env.example .env
 
-      - name: Run Compoose Up
+      - name: Run Compose Up
         run: docker compose up -d
 
       - name: Run Tests
