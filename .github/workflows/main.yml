@@ -15,7 +15,7 @@ permissions:
   contents: read
 
 jobs:
-  confirm-convention:
+  confirm_commit_convention:
     runs-on: ubuntu-24.04
 
     steps:
@@ -32,9 +32,19 @@ jobs:
         with:
           comment: "PR closed due to not following commit convention"
 
+      - name: Send Email on Commit Convention Failure
+        if: failure()
+        uses: dawidd6/action-send-mail@v4
+        with:
+          connection_url: ${{ secrets.MAIL_CONNECTION }}
+          subject: "GitHub Actions: Commit Convention Check Failed"
+          to: ${{ secrets.EMAIL_TO }}
+          from: "GitHub Actions <${{ secrets.MAIL_USERNAME }}>"
+          body: "The commit message did not follow the conventional commit format. Please fix it before merging."
+
   build_and_test:
     runs-on: ubuntu-24.04
-    needs: confirm-convention
+    needs: confirm_commit_convention
 
     steps:
       - uses: actions/checkout@v4
@@ -55,3 +65,13 @@ jobs:
 
       - name: Run Tests
         run: docker compose exec web pytest
+
+      - name: Send Email on Test Failure
+        if: failure()
+        uses: dawidd6/action-send-mail@v4
+        with:
+          connection_url: ${{ secrets.MAIL_CONNECTION }}
+          subject: "GitHub Actions: Tests Failed"
+          to: ${{ secrets.EMAIL_TO }}
+          from: "GitHub Actions <${{ secrets.MAIL_USERNAME }}>"
+          body: "Some tests failed in the latest build. Check GitHub Actions."
