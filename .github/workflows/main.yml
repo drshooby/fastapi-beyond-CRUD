@@ -75,3 +75,15 @@ jobs:
           to: ${{ secrets.EMAIL_TO }}
           from: "Eleonore Cummings via Ethereal Email <${{ secrets.MAIL_USERNAME }}>"
           body: "Some tests failed in the latest build. Check GitHub Actions."
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      
+      - name: Build and Push
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          tags: drshooby/fastapi-beyond-CRUD:nightly
