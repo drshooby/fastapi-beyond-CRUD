@@ -47,7 +47,7 @@ jobs:
 
   build_and_test:
     runs-on: ubuntu-24.04
-    needs: confirm_commit_convention
+    if: ${{ github.event_name != 'pull_request_target' }}
 
     steps:
       - uses: actions/checkout@v4
