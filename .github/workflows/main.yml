@@ -1,9 +1,6 @@
 name: Nightly Build with Conventional Commits
 
 on:
-  push:
-    branches:
-      - main
   pull_request_target:
     types:
       - opened
@@ -93,3 +90,6 @@ jobs:
         with:
           push: true
           tags: drshooby/fastapi-beyond-crud:nightly
+
+      - name: Run Compose Down
+        run: docker compose down
