@@ -22,8 +22,10 @@ services:
       - "8000:8000"
 
     depends_on:
-      - db
-      - redis
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
 
     command: >
       sh -c "alembic upgrade head && fastapi run src --host 0.0.0.0 --port 8000"
@@ -35,10 +37,17 @@ services:
   db:
     image: postgres:15
 
+    user: postgres
     environment:
       POSTGRES_USER: postgres
       POSTGRES_DB: bookly
       POSTGRES_PASSWORD: testpass
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-d", "bookly"]
+      interval: 5s
+      retries: 5
+      start_period: 10s
 
     ports:
      - "5432:5432"
@@ -48,8 +57,15 @@ services:
 
     networks:
       - app-network
+      
   redis:
     image: redis:6
+
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      retries: 5
+      start_period: 5s
 
     ports:
      - "6379:6379"
@@ -66,7 +82,8 @@ services:
       - .:/app
 
     depends_on:
-      - redis
+      redis:
+        condition: service_healthy
 
     environment:
       REDIS_URL: ${REDIS_URL}
