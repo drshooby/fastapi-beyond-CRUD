@@ -86,4 +86,4 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: drshooby/fastapi-beyond-CRUD:nightly
+          tags: drshooby/fastapi-beyond-crud:nightly
