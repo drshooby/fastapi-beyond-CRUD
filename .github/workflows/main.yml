@@ -19,7 +19,8 @@ permissions:
 jobs:
   confirm_commit_convention:
     runs-on: ubuntu-24.04
-    
+    if: ${{ github.event_name == 'pull_request_target' }}
+
     steps:
       - uses: actions/checkout@v4
 
@@ -46,7 +47,6 @@ jobs:
 
   build_and_test:
     runs-on: ubuntu-24.04
-    if: ${{ github.event_name != 'pull_request_target' }}
     needs: confirm_commit_convention
 
     steps:
