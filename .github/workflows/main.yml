@@ -1,6 +1,9 @@
 name: Nightly Build with Conventional Commits
 
 on:
+  push:
+    branches:
+      - main
   pull_request_target:
     types:
       - opened
@@ -63,6 +66,9 @@ jobs:
 
       - name: Run Compose Up
         run: docker compose up -d
+
+      - name: Run Alembic Migrations
+        run: docker compose exec web alembic upgrade head
 
       - name: Run Tests
         run: docker compose exec web pytest
