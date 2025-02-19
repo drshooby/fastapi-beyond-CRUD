@@ -36,7 +36,7 @@ jobs:
           comment: "PR closed due to not following commit convention"
 
       - name: Send Email on Commit Convention Failure
-        if: failure()
+        if: steps.check-commit.outcome == 'failure'
         uses: dawidd6/action-send-mail@v4
         with:
           connection_url: ${{ secrets.MAIL_CONNECTION }}
@@ -44,6 +44,10 @@ jobs:
           to: ${{ secrets.EMAIL_TO }}
           from: "Eleonore Cummings via Ethereal Email <${{ secrets.MAIL_USERNAME }}>"
           body: "The commit message did not follow the conventional commit format. Please fix it before merging."
+
+      - name: Force Fail After Email
+        if: steps.check-commit.outcome == 'failure'
+        run: exit 1
 
   build_and_test:
     runs-on: ubuntu-24.04
