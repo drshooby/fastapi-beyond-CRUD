@@ -12,7 +12,8 @@ For more details, visit the project's [website](https://jod35.github.io/fastapi-
 2. [Prerequisites](#prerequisites)
 3. [Project Setup and Startup](#project-setup-and-startup)
 5. [Running Tests](#running-tests)
-6. [Contributing](#contributing)
+6. [Documentation](#documentation)
+7. [Contributing](#contributing)
 
 ## Getting Started
 Follow the instructions below to set up and run your FastAPI project.
@@ -45,6 +46,9 @@ Ensure you have the following installed:
 
 ### Running Tests
     - Tests can be run from within the Docker container using pytest
+
+### Documentation
+    - After startup, find documentation at http://localhost:8000/api/v1/docs and http://localhost:8000/api/v1/redoc
 
 ## Contributing
 I welcome contributions to improve the documentation! You can contribute [here](https://github.com/jod35/fastapi-beyond-crud-docs).
