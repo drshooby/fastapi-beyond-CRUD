@@ -6,8 +6,6 @@ on:
       - opened
       - synchronize
       - reopened
-  schedule:
-    - cron: '0 8 * * *'
 
 permissions:
   pull-requests: write
